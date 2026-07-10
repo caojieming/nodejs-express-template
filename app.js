@@ -1,5 +1,8 @@
-// load .env variables
-process.loadEnvFile()
+// load .env variables if it exists
+try {
+  process.loadEnvFile();
+} catch(error) {}
+
 
 // standard express import
 const express = require("express");
@@ -16,28 +19,17 @@ app.set("view engine", "ejs");
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
 
+// import routers
+const indexRouter = require("./routes/indexRouter");
 
 
-const links = [
-  { href: "/", text: "Home" },
-  { href: "/about", text: "About" },
-];
-const users = ["Rose", "Cake", "Biff"];
+app.use(express.urlencoded({ extended: true }));
 
-// the first argument of res.render is "a template called index in the specified folder above", the second argument is an object of variables that are to be made available to that specific template
-app.get("/", (req, res) => {
-  res.render("index", { links: links });
-});
-
-app.get("/about", (req, res) => {
-  res.render("about", { users: users });
-});
-
-
+app.use("/", indexRouter);
 
 
 // open web server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, (error) => {
   if (error) {
     throw error;
