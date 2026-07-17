@@ -9,4 +9,9 @@ Run `npm update` to update outdated packages.
 `npm run app`<br>
 The equivalent of `node --watch app.js`.<br>
 Opens an Express server for viewing changes in real time without needing to build.<br>
-Default server link: http://localhost:3000/
+Default server link: http://localhost:8080/
+
+## Packages included
+- express
+- ejs
+- express-validator
